@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+service Room {
+    rpc AddRoom(AddRoomRequest) returns (AddRoomResponse) {}
+    rpc RemoveRoomByID(RemoveRoomByIDRequest) returns (RemoveRoomByIDResponse) {}
+    rpc ShowAllRooms(ShowAllRoomsRequest) returns (ShowAllRoomsResponse) {}
+    rpc FindRoomByID(FindRoomByIDRequest) returns (FindRoomByIDResponse) {}
+    rpc SetRoomAvailability(SetRoomAvailabilityRequest) returns (SetRoomAvailabilityResponse) {}
+}
+
+message AddRoomRequest{
+    string roomName = 1;
+    bool isRoomAvailable = 2;
+    int32 availableSeats = 3;
+}
+message AddRoomResponse{
+    string message = 1;
+    RoomStruct room = 2;
+}
+
+message RemoveRoomByIDRequest{
+    string roomName = 1;
+}
+message RemoveRoomByIDResponse{
+    string message = 1;
+    RoomStruct room = 2;
+}
+
+message ShowAllRoomsRequest{}
+message ShowAllRoomsResponse{
+    repeated RoomStruct rooms = 1;
+}
+
+message FindRoomByIDRequest{
+    string roomName = 1;
+}
+message FindRoomByIDResponse{
+    string message = 1;
+    RoomStruct room = 2;
+}
+
+message ShowAllShowingsInRoomRequest{}
+message ShowAllShowingsInRoomResponse{}
+
+message SetRoomAvailabilityRequest{
+    string roomName = 1;
+    bool isRoomAvailable = 2;
+}
+message SetRoomAvailabilityResponse{
+    string message = 1;
+    RoomStruct room = 2;
+}
+
+message RoomStruct{
+    string roomName = 1;
+    bool isRoomAvailable = 2;
+    int32 availableSeats = 3;
+}

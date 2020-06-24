@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+service Reservation {
+    rpc InitReservation(InitReservationRequest) returns (InitReservationResponse){}
+    rpc CreateReservation(CreateReservationRequest) returns (CreateReservationResponse) {}
+    rpc ReadReservation(ReadReservationRequest) returns (ReadReservationResponse) {}
+    rpc UpdateReservation(UpdateReservationRequest) returns (UpdateReservationResponse) {}
+    rpc DeleteReservation(DeleteReservationRequest) returns(DeleteReservationResponse) {}
+    rpc GetReservationsForUser(GetReservationForUserRequest) returns(GetReservationForUserResponse) {}
+    rpc DeleteReservationsForShowing(DeleteReservationsForShowingRequest) returns(DeleteReservationsForShowingResponse){}
+}
+
+message CreateReservationRequest{
+    string userID = 1;
+    string showingID = 2;
+    int32 seatCount = 3;
+    bool doReservation = 4;
+}
+message CreateReservationResponse{
+    string message = 1;
+    ReservationStruct createdReservation = 2;
+}
+
+message InitReservationRequest{
+    string userID = 1;
+    string showingID = 2;
+    int32 seatCount = 3;
+}
+message InitReservationResponse{
+    string message = 1;
+}
+
+message ReadReservationRequest{
+    string reservationID = 1;
+}
+message ReadReservationResponse{
+    string message = 1;
+    ReservationStruct reservation = 2;
+}
+
+message UpdateReservationRequest{
+    string reservationID = 1;
+    string userID = 2;
+    int32 seatCount = 3;
+}
+message UpdateReservationResponse{
+    ReservationStruct updatedReservation = 1;
+    string message = 2;
+}
+
+message DeleteReservationRequest{
+    string reservationID = 1;
+}
+message DeleteReservationResponse{
+    string message = 1;
+    ReservationStruct deletedReservation = 2;
+}
+
+message ReservationStruct {
+    string userID = 1;
+    string showingID = 2;
+    string reservationID = 3;
+    int32 seatCount = 4;
+}
+
+message UpdateSeatCount{
+    int32 seatCount = 1;
+}
+
+message GetReservationForUserRequest{
+    string userID = 1;
+}
+
+message GetReservationForUserResponse{
+    repeated ReservationStruct allReservations = 1;
+}
+
+message DeleteReservationsForShowingRequest{
+    string showingID = 1;
+}
+
+message DeleteReservationsForShowingResponse{
+    string message = 1;
+}

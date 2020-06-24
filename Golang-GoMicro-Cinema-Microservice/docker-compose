@@ -1,0 +1,39 @@
+# docker-compose -f <file_name> up
+version: '2'
+services:
+  movie:
+    container_name: "movie-service-container"
+    build:
+      context: .
+      dockerfile: movie_dockerfile
+  room:
+    container_name: "room-service-container"
+    build:
+      context: .
+      dockerfile: room_dockerfile
+  showing:
+    container_name: "showing-service-container"
+    build:
+      context: .
+      dockerfile: showing_dockerfile
+  reservation:
+    container_name: "reservation-service-container"
+    build:
+      context: .
+      dockerfile: reservation_dockerfile
+  user:
+    container_name: "user-service-container"
+    build:
+      context: .
+      dockerfile: user_dockerfile
+  client:
+    container_name: "client-container"
+    build:
+      context: .
+      dockerfile: client_dockerfile
+    depends_on:
+      - "movie"
+      - "room"
+      - "showing"
+      - "reservation"
+      - "user"

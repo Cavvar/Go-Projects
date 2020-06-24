@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+service Movie {
+	rpc CreateMovie(CreateMovieRequest) returns (CreateMovieResponse) {}
+	rpc ReadMovie(ReadMovieRequest) returns (ReadMovieResponse) {}
+	rpc DeleteMovie(DeleteMovieRequest) returns (DeleteMovieResponse) {}
+	rpc GetAllMovies(GetAllMoviesRequest) returns (GetAllMoviesResponse) {}
+}
+
+message ReadMovieRequest{
+	string movieID = 1;
+}
+message ReadMovieResponse{
+	string message = 1;
+	MovieStruct movie = 2;
+}
+
+message CreateMovieRequest{
+	string name = 1;
+	int32 fsk = 2;
+}
+message CreateMovieResponse{
+	string message = 1;
+	MovieStruct newMovie = 2;
+}
+
+message DeleteMovieRequest{
+	string movieID = 1;
+}
+message DeleteMovieResponse{
+	string message = 1;
+}
+
+message GetAllMoviesRequest{}
+message GetAllMoviesResponse{
+	repeated MovieStruct allMovies = 1;
+}
+
+message MovieStruct{
+	string id = 1;
+	string name = 2;
+	int32 fsk = 3;
+}

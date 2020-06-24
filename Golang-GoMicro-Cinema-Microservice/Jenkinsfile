@@ -1,0 +1,43 @@
+pipeline {
+    agent none
+    stages {
+        stage('Build Go Files') {
+            agent {
+                docker {image 'obraun/vss-protoactor-jenkins'}
+            }
+            steps {
+                sh 'cd client && go build main.go'
+                sh 'cd movie && go build movie.go'
+                sh 'cd user && go build user.go'
+                sh 'cd showing && go build showing.go'
+                sh 'cd room && go build room.go'
+                sh 'cd reservation && go build reservation.go'
+            }
+        }
+        stage('Test') {
+            agent any
+            steps {
+                sh 'echo TESTS'
+            }
+        }
+        stage('Lint') {
+            agent {
+                docker {image 'obraun/vss-protoactor-jenkins'}
+            }
+            steps {
+                sh 'golangci-lint run --enable-all --disable=wsl --disable=lll --disable=funlen'
+            }
+        }
+        stage('Build Docker Images') {
+            agent any
+            steps {
+                sh "docker build -f movie_dockerfile -t movie-service ."
+                sh "docker build -f room_dockerfile -t room-service ."
+                sh "docker build -f showing_dockerfile -t showing-service ."
+                sh "docker build -f user_dockerfile -t user-service ."
+                sh "docker build -f reservation_dockerfile -t reservation-service ."
+                sh "docker build -f client_dockerfile -t client-service ."
+            }
+        }
+    }
+}

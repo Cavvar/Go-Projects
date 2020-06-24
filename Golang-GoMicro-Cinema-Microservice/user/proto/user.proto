@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+service User {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {}
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {}
+    rpc ShowAllUser(ShowAllUserRequest) returns (ShowAllUserResponse) {}
+    rpc ReadUser(ReadUserRequest) returns (ReadUserResponse) {}
+}
+
+message CreateUserRequest{
+    string firstName = 1;
+    string lastName = 2;
+    int32 age = 3;
+}
+message CreateUserResponse{
+    string message = 1;
+    UserStruct newUser = 2;
+}
+
+message DeleteUserRequest{
+    string userID = 1;
+}
+message DeleteUserResponse{
+    string message = 1;
+}
+
+message ShowAllUserRequest{}
+message ShowAllUserResponse{
+    repeated UserStruct allUsers = 1;
+}
+
+message ReadUserRequest{
+    string userID = 1;
+}
+message ReadUserResponse{
+    string message = 1;
+    UserStruct user = 2;
+}
+
+message UserStruct{
+    string firstName = 1;
+    string lastName = 2;
+    int32 age = 3;
+    string userID = 4;
+}

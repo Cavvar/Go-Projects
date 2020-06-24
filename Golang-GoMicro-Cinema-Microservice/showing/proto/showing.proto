@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+service Showing {
+    rpc CreateShowing(CreateShowingRequest) returns (CreateShowingResponse) {}
+    rpc ReadShowing(ReadShowingRequest) returns (ReadShowingResponse) {}
+    rpc UpdateShowing(UpdateShowingRequest) returns (UpdateShowingResponse) {}
+    rpc DeleteShowing(DeleteShowingRequest) returns (DeleteShowingResponse) {}
+    rpc GetAllShowings(GetAllShowingsRequest) returns (GetAllShowingsResponse) {}
+    rpc DeleteShowingsForMovie(DeleteShowingsForMovieRequest) returns (DeleteShowingsForMovieResponse) {}
+    rpc DeleteShowingsForRoom(DeleteShowingsForRoomRequest) returns (DeleteShowingsForRoomResponse) {}
+}
+
+message CreateShowingRequest{
+    string movieID = 1;
+    string roomName = 2;
+}
+message CreateShowingResponse{
+    string message = 1;
+    ShowingStruct newShowing = 2;
+}
+
+message ReadShowingRequest{
+    string showingID = 1;
+}
+message ReadShowingResponse{
+    string message = 1;
+    ShowingStruct response = 2;
+}
+
+message UpdateShowingRequest{
+    string showingID = 1;
+    ShowingStruct updatedShowing = 2;
+}
+message UpdateShowingResponse{
+    ShowingStruct updatedShowing = 1;
+    string message = 2;
+}
+
+message DeleteShowingRequest{
+    string showingID = 1;
+}
+message DeleteShowingResponse{
+    string message = 1;
+}
+
+message GetAllShowingsRequest{}
+message GetAllShowingsResponse{
+    repeated ShowingStruct allShowings = 1;
+}
+
+message ShowingStruct{
+    string showingID = 1;
+    string movieID = 2;
+    string roomName = 3;
+    int32 availableSeats = 4;
+}
+
+message DeleteShowingsForMovieRequest{
+    string movieID = 1;
+}
+message DeleteShowingsForMovieResponse{
+    string message = 1;
+}
+
+message DeleteShowingsForRoomRequest{
+    string roomName = 1;
+}
+message DeleteShowingsForRoomResponse{
+    string message = 1;
+}
